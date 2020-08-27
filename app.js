@@ -87,7 +87,8 @@ let userProfileName;
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/budgets",
+    // callbackURL: "http://localhost:3000/auth/google/budgets",
+    callbackURL: "https://whispering-lowlands-05174.herokuapp.com/auth/google/budgets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
