@@ -1,0 +1,75 @@
+html {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #1e2022;
+  color: #f0f5f9;
+}
+
+input[type=text] {
+  width: 100%;
+}
+
+.menuTop {
+  padding-top: 150px;
+  padding-bottom: 50px;
+  color: white;
+  font-size: 5rem;
+}
+
+.container {
+  background-color: #1e2022;
+  padding: 0;
+  padding-top: 100px;
+  height: 100vh;
+}
+
+.card {
+  background-color: #52616b;
+}
+
+.budget {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.budgetHead {
+  padding: 0 15px;
+}
+
+
+.budgetButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.deleteButton {
+  margin-left: 10px;
+}
+
+.jumbotron {
+  padding-top: 50px;
+  margin-top: 50px;
+  height: 50vh;
+  background-color: #52616b;
+}
+
+.modal-content {
+  background-color: #52616b;
+}
+
+.createCategory .form-control {
+  margin-left: 5px;
+  width: 100%;
+}
+
+.dropdown-menu {
+  width: 250px;
+}
+
+.logoutButton {
+  margin-right: 10px;
+}

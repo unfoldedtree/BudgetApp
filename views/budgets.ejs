@@ -1,0 +1,105 @@
+<%- include('partials/header') %>
+
+<div class="text-center menuTop">
+  <h1>Personal Budgeting</h1>
+  <h2 class=""><%= userName %></h2>
+</div>
+
+
+<div class="budgetHead">
+
+
+  <form class="" action="/budgets" method="post">
+    <div class="form-row">
+
+      <div class="form-group col-sm-5">
+        <input type="text" class="form-control" name="budgetName" placeholder="Create a new budget">
+      </div>
+      <div class="form-group col-xs-1">
+        <button type="submit" name="button" class="btn btn-success">+</button>
+      </div>
+      <div class="form-group col-xs-1 ml-auto">
+        <div class="">
+          <a class="btn btn-outline-info" href="/logout" role="button">Logout</a>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </form>
+</div>
+
+
+
+
+
+
+<div class="col align-self-center">
+
+  <% userBudgets.forEach(budget => { %>
+  <div class="budget card">
+    <div class="card-body">
+      <h2><%= budget.name %></h2>
+      <h6>Description: <%= budget.description %></h6>
+      <p>Total: $<%= budget.total %></p>
+
+      <div class="budgetButtons">
+        <div class="">
+          <a href="/budgets/<%= budget.id %>" class="btn btn-primary">View</a>
+
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateBudget-<%= budget.id %>">
+            Edit
+          </button>
+
+          <!-- Modal -->
+
+          <div class="modal fade" id="updateBudget-<%= budget.id %>" tabindex="-1" role="dialog" aria-labelledby="updateBudgetLabel-<%= budget.id %>" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="updateBudgetLabel-<%= budget.id %>">Edit Transaction</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form" action="/update/<%= budget.id %>" method="post">
+                    <div class="form-group">
+                      <label>Title</label>
+                      <input type="text" class="form-control" name="budgetName" value="<%= budget.name %>">
+                      <label>Date</label>
+                      <label>Description</label>
+                      <input type="text" class="form-control" name="budgetDesc" value="<%= budget.description %>">
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-success">Update</button>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <a href="/delete/<%= budget.id %>" class="btn btn-outline-danger">Delete</a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <% }); %>
+
+
+</div>
+
+
+
+<%- include('partials/footer') %>

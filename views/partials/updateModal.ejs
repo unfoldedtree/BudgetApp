@@ -1,0 +1,42 @@
+
+<div class="modal fade" id="editModal-<%= transaction.id %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel-<%= transaction.id %>" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel-<%= transaction.id %>">Edit Transaction</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form" action="/update/<%= budgetId %>/<%= transaction.id %>" method="post">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" name="transactionName" value="<%= transaction.name %>">
+            <label>Date</label>
+            <input type="date" class="form-control" name="transactionDate" value="<%= transaction.date %>">
+            <label>Amount</label>
+            <input type="number" pattern="^\\$?(([1-9](\\d*|\\d{0,2}(,\\d{3})*))|0)(\\.\\d{1,2})?$" class="form-control" name="transactionAmount text-right" value="<%= transaction.amount %>">
+            <label>Description</label>
+            <input type="text" class="form-control" name="transactionDesc" value="<%= transaction.description %>">
+
+            <label>Category </label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category">
+              <option value="" selected disabled hidden><%= transaction.category %></option>
+              <option>None</option>
+              <% budgetCategories.forEach(category => { %>
+                <option value="<%= category %>"><%= category %></option>
+              <% }); %>
+            </select>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Update</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

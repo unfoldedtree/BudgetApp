@@ -1,0 +1,50 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form" action="/transactions/<%= budgetId %>" method="post">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" name="transactionName" required>
+            <label>Date</label>
+            <input type="date" class="form-control" name="transactionDate">
+            <label>Amount</label>
+            <input type="number" pattern="^\\$?(([1-9](\\d*|\\d{0,2}(,\\d{3})*))|0)(\\.\\d{1,2})?$" class="form-control" name="transactionAmount" required>
+            <label>Description</label>
+            <input type="text" class="form-control" name="transactionDesc">
+
+            <label>Category </label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="category">
+              <option selected value="None">None</option>
+              <% budgetCategories.forEach(category => { %>
+                <option value="<%= category %>"><%= category %></option>
+              <% }); %>
+            </select>
+
+            <label>Transaction Type</label><br>
+            <input type="radio" name="transactionType" value="Deposit" required>
+            <label>Deposit </label><br>
+
+            <input type="radio" name="transactionType" value="Payment">
+            <label>Payment </label><br>
+
+            <input type="radio" name="transactionType" value="Withdrawal">
+            <label>Withdrawal </label><br>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Add</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

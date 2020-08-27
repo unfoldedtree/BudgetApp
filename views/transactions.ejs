@@ -1,0 +1,108 @@
+<%- include('partials/header') %>
+
+
+
+<h1 class="text-center menuTop"><%= budgetName %> Transactions</h1>
+
+<div class="budgetHead">
+
+  <div class="form-row">
+    <div class="col-xs-1">
+      <a href="/budgets" class="btn btn-info">Back</a>
+    </div>
+    <div class="col-xs-1">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Add Transaction
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Category
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/budgets/<%= budgetId %>">All Categories</a>
+          <a class="dropdown-item" href="/budgets/<%= budgetId %>/None">No Category</a>
+          <% budgetCategories.forEach(category => { %>
+          <a class="dropdown-item" href="/budgets/<%= budgetId %>/<%= category %>"><%= category %></a>
+          <% }); %>
+
+          <div class="dropdown-divider"></div>
+          <form class="form-inline" action="/transactions/category/<%= budgetId %>" method="post">
+            <div class="form-row">
+              <div class="col-9 createCategory">
+                <input type="text" class="form-control" name="newCategory" id="newCategory" placeholder="New Category">
+              </div>
+              <div class="col-1">
+                <button type="submit" class="btn btn-primary mb-2 mr-sm-1">+</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-1">
+      <div class="input-group-prepend">
+        <p class="input-group-text" id="basic-addon1">Total: $<%= budgetTotal %></p>
+      </div>
+    </div>
+    <div class="col-xs-1">
+      <div class="input-group-prepend">
+        <p class="input-group-text" id="basic-addon1">Category Total: $<%= categoryTotal %></p>
+      </div>
+    </div>
+
+    <div class="col-1 ml-auto">
+      <!-- Logout Button -->
+
+      <a class="btn btn-outline-info logoutButton" href="/logout" role="button">Logout</a>
+    </div>
+
+
+  </div>
+
+
+  <!-- Modal -->
+  <%- include('partials/createModal', {budgetId: budgetId, budgetCategories: budgetCategories}) %>
+
+
+
+
+  <!-- Start render each transaction -->
+
+  <div class="col align-self-center">
+
+    <% budgetTransactions.forEach(transaction => { %>
+    <div class="budget card">
+      <div class="card-body">
+        <h2><%= transaction.name %></h2>
+        <p>Amount: $<%= transaction.amount %></p>
+        <p>Date: <%= transaction.date %></p>
+        <p>Description: <%= transaction.description %></p>
+        <p>Type: <%= transaction.type %></p>
+        <p>Category: <%= transaction.category %></p>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal-<%= transaction.id %>">
+          Edit
+        </button>
+
+        <!-- Modal -->
+
+        <%- include('partials/updateModal', {transaction: transaction}) %>
+
+        <a href="/delete/<%= budgetId %>/<%= transaction.id %>" class="btn btn-outline-danger">Delete</a>
+
+      </div>
+    </div>
+    <% }); %>
+
+
+  </div>
+
+  <!-- End render each transaction -->
+
+
+
+  <%- include('partials/footer') %>
