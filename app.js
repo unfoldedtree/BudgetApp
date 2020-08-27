@@ -26,7 +26,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb://localhost:27017/budgetDB', {
+mongoose.connect('mongodb+srv://Admin:Mcyammer1,@cluster0.nrlla.mongodb.net/budgetDB?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
