@@ -26,15 +26,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb://localhost:27017/budgetDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+// Change Database object based on if using local or online version
 
-// mongoose.connect('mongodb+srv://Admin:Mcyammer1,@cluster0.nrlla.mongodb.net/budgetDB?retryWrites=true&w=majority', {
+// mongoose.connect('mongodb://localhost:27017/budgetDB', {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true
 // });
+
+mongoose.connect(process.env.DATABASE_STRING, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 const transactionSchema = new mongoose.Schema({
   name: String,
@@ -92,8 +94,9 @@ let userProfileName;
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/budgets",
-    // callbackURL: "https://whispering-lowlands-05174.herokuapp.com/auth/google/budgets",
+    //Change callbackURL based on if using local or online version
+    // callbackURL: "http://localhost:3000/auth/google/budgets",
+    callbackURL: "https://whispering-lowlands-05174.herokuapp.com/auth/google/budgets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
