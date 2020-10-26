@@ -268,7 +268,7 @@ app.post("/update/:budgetId/:transactionId", function(req, res) {
     const transactionId = req.params.transactionId;
     const newName = req.body.transactionName;
     const newDesc = req.body.transactionDesc;
-    const newAmount = Number(req.body.transactionAmount);
+    const newAmount = req.body.transactionAmount;
     const newDate = req.body.transactionDate;
     const newCategory = req.body.category;
 
@@ -287,13 +287,13 @@ app.post("/update/:budgetId/:transactionId", function(req, res) {
         const transAmount = foundBudget.transactions.id(transactionId).amount;
         switch (transType) {
           case 'Deposit':
-            foundBudget.total = (foundBudget.total.toFixed(2) - transAmount.toFixed(2)) + newAmount.toFixed(2);
+            foundBudget.total = (foundBudget.total - transAmount) + newAmount;
             break;
           case 'Withdrawal':
-            foundBudget.total = (foundBudget.total.toFixed(2) + transAmount.toFixed(2)) - newAmount.toFixed(2);
+            foundBudget.total = (foundBudget.total + transAmount) - newAmount;
             break;
           case 'Payment':
-            foundBudget.total = (foundBudget.total.toFixed(2) + transAmount.toFixed(2)) - newAmount.toFixed(2);
+            foundBudget.total = (foundBudget.total + transAmount) - newAmount;
             break;
         }
 
@@ -567,17 +567,17 @@ app.post("/transactions/:budgetId", function(req, res) {
 
       // Test update Total
       const transType = newTransaction.type;
-      const transAmount = Number(newTransaction.amount).toFixed(2);
+      const transAmount = newTransaction.amount;
 
       switch (transType) {
         case 'Deposit':
-          foundBudget.total = Number(foundBudget.total).toFixed(2) + transAmount;
+          foundBudget.total = foundBudget.total + transAmount;
           break;
         case 'Withdrawal':
-          foundBudget.total = Number(foundBudget.total).toFixed(2) - transAmount;
+          foundBudget.total = foundBudget.total - transAmount;
           break;
         case 'Payment':
-          foundBudget.total = Number(foundBudget.total).toFixed(2) - transAmount;
+          foundBudget.total = foundBudget.total - transAmount;
           break;
       }
       // End Test update Total
