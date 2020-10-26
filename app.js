@@ -268,7 +268,7 @@ app.post("/update/:budgetId/:transactionId", function(req, res) {
     const transactionId = req.params.transactionId;
     const newName = req.body.transactionName;
     const newDesc = req.body.transactionDesc;
-    const newAmount = req.body.transactionAmount.toFixed(2);
+    const newAmount = req.body.transactionAmount;
     const newDate = req.body.transactionDate;
     const newCategory = req.body.category;
 
@@ -284,16 +284,16 @@ app.post("/update/:budgetId/:transactionId", function(req, res) {
       }
       if (newAmount) {
         const transType = foundBudget.transactions.id(transactionId).type;
-        const transAmount = foundBudget.transactions.id(transactionId).amount.toFixed(2);
+        const transAmount = foundBudget.transactions.id(transactionId).amount;
         switch (transType) {
           case 'Deposit':
-            foundBudget.total = (foundBudget.total.toFixed(2) - transAmount) + newAmount;
+            foundBudget.total = (foundBudget.total.toFixed(2) - transAmount.toFixed(2)) + newAmount.toFixed(2);
             break;
           case 'Withdrawal':
-            foundBudget.total = (foundBudget.total.toFixed(2) + transAmount) - newAmount;
+            foundBudget.total = (foundBudget.total.toFixed(2) + transAmount.toFixed(2)) - newAmount.toFixed(2);
             break;
           case 'Payment':
-            foundBudget.total = (foundBudget.total.toFixed(2) + transAmount) - newAmount;
+            foundBudget.total = (foundBudget.total.toFixed(2) + transAmount.toFixed(2)) - newAmount.toFixed(2);
             break;
         }
 
