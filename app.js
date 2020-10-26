@@ -26,10 +26,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb+srv://Admin:Mcyammer1,@cluster0.nrlla.mongodb.net/budgetDB?retryWrites=true&w=majority', {
+mongoose.connect('mongodb://localhost:27017/budgetDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
+// mongoose.connect('mongodb+srv://Admin:Mcyammer1,@cluster0.nrlla.mongodb.net/budgetDB?retryWrites=true&w=majority', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
 
 const transactionSchema = new mongoose.Schema({
   name: String,
@@ -87,8 +92,8 @@ let userProfileName;
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    // callbackURL: "http://localhost:3000/auth/google/budgets",
-    callbackURL: "https://whispering-lowlands-05174.herokuapp.com/auth/google/budgets",
+    callbackURL: "http://localhost:3000/auth/google/budgets",
+    // callbackURL: "https://whispering-lowlands-05174.herokuapp.com/auth/google/budgets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -277,7 +282,6 @@ app.post("/update/:budgetId/:transactionId", function(req, res) {
       if (newAmount) {
         const transType = foundBudget.transactions.id(transactionId).type;
         const transAmount = foundBudget.transactions.id(transactionId).amount;
-
         switch (transType) {
           case 'Deposit':
             foundBudget.total = (foundBudget.total - transAmount) + newAmount;
@@ -300,8 +304,7 @@ app.post("/update/:budgetId/:transactionId", function(req, res) {
       }
 
       foundUser.save();
-      // console.log("Successful Delete");
-      // console.log(foundBudget.transactions);
+
       res.redirect("/budgets/" + budgetId);
     });
   } else {
@@ -496,6 +499,37 @@ app.post("/transactions/category/:budgetId", function(req, res) {
   }
 });
 
+// Delete Category for Transactions
+
+app.get("/budgets/:budgetId/delete/:category", function(req, res) {
+
+  if (req.isAuthenticated()) {
+    const budgetId = req.params.budgetId;
+
+    const category = req.params.category;
+    // console.log("User ID: " + req.user.id);
+    User.findById(req.user.id, function(err, foundUser) {
+
+      if (err) {
+        console.log(err);
+      } else {
+        // console.log("This is a user: " + foundUser);
+        const foundBudget = foundUser.budgets.id(budgetId);
+        // console.log("Found Budget: " + foundBudget);
+        if (category) {
+          foundBudget.categories.remove(category);
+        }
+
+        foundUser.save();
+
+        res.redirect("/budgets/" + budgetId);
+      }
+    })
+  } else {
+    res.redirect("/");
+  }
+});
+
 // Create Transactions
 
 app.post("/transactions/:budgetId", function(req, res) {
@@ -506,7 +540,7 @@ app.post("/transactions/:budgetId", function(req, res) {
     newCategory = "None";
   }
 
-  console.log(newCategory);
+  // console.log(newCategory);
 
   if (req.isAuthenticated()) {
     const newTransaction = new Transaction({

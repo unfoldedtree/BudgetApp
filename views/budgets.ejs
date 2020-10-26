@@ -43,7 +43,7 @@
     <div class="card-body">
       <h2><%= budget.name %></h2>
       <h6>Description: <%= budget.description %></h6>
-      <p>Total: $<%= budget.total %></p>
+      <p>Total: $<%= budget.total.toFixed(2) %></p>
 
       <div class="budgetButtons">
         <div class="">
@@ -70,7 +70,6 @@
                     <div class="form-group">
                       <label>Title</label>
                       <input type="text" class="form-control" name="budgetName" value="<%= budget.name %>">
-                      <label>Date</label>
                       <label>Description</label>
                       <input type="text" class="form-control" name="budgetDesc" value="<%= budget.description %>">
 

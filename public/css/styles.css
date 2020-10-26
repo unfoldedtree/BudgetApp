@@ -39,6 +39,34 @@ input[type=text] {
   padding: 0 15px;
 }
 
+.headerRow {
+  padding-bottom: 10px;
+}
+
+.transactionCard {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.nameCategory {
+  display: inline-block;
+  width: 90%;
+}
+
+.deleteCategory {
+  width: 10%;
+  display: inline;
+  float: right;
+  text-align: center;
+  padding-top: 10px;
+  height: 32px;
+  color: #FF0000;
+}
+
+.deleteCategory:hover {
+  color: #FF9494;
+  text-decoration: none;
+}
 
 .budgetButtons {
   display: flex;
@@ -71,5 +99,12 @@ input[type=text] {
 }
 
 .logoutButton {
-  margin-right: 10px;
+  margin-right: 0px;
+  float: right;
+}
+
+@media screen and (min-height: 720px) {
+  .jumbotron {
+    height: auto;
+  }
 }

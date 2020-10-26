@@ -6,7 +6,7 @@
 
 <div class="budgetHead">
 
-  <div class="form-row">
+  <div class="form-row headerRow">
     <div class="col-xs-1">
       <a href="/budgets" class="btn btn-info">Back</a>
     </div>
@@ -25,7 +25,7 @@
           <a class="dropdown-item" href="/budgets/<%= budgetId %>">All Categories</a>
           <a class="dropdown-item" href="/budgets/<%= budgetId %>/None">No Category</a>
           <% budgetCategories.forEach(category => { %>
-          <a class="dropdown-item" href="/budgets/<%= budgetId %>/<%= category %>"><%= category %></a>
+          <a class="dropdown-item nameCategory" href="/budgets/<%= budgetId %>/<%= category %>"><%= category %><a class="fas fa-minus-circle fa-lg deleteCategory" href="/budgets/<%= budgetId %>/delete/<%= category %>"></a></a>
           <% }); %>
 
           <div class="dropdown-divider"></div>
@@ -45,12 +45,12 @@
 
     <div class="col-xs-1">
       <div class="input-group-prepend">
-        <p class="input-group-text" id="basic-addon1">Total: $<%= budgetTotal %></p>
+        <p class="input-group-text" id="basic-addon1">Total: $<%= budgetTotal.toFixed(2) %></p>
       </div>
     </div>
     <div class="col-xs-1">
       <div class="input-group-prepend">
-        <p class="input-group-text" id="basic-addon1">Category Total: $<%= categoryTotal %></p>
+        <p class="input-group-text" id="basic-addon1">Category Total: $<%= categoryTotal.toFixed(2) %></p>
       </div>
     </div>
 
@@ -72,13 +72,13 @@
 
   <!-- Start render each transaction -->
 
-  <div class="col align-self-center">
+  <div class="col align-self-center transactionCard">
 
     <% budgetTransactions.forEach(transaction => { %>
     <div class="budget card">
       <div class="card-body">
         <h2><%= transaction.name %></h2>
-        <p>Amount: $<%= transaction.amount %></p>
+        <p>Amount: $<%= transaction.amount.toFixed(2) %></p>
         <p>Date: <%= transaction.date %></p>
         <p>Description: <%= transaction.description %></p>
         <p>Type: <%= transaction.type %></p>
