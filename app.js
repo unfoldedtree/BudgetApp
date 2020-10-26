@@ -284,16 +284,16 @@ app.post("/update/:budgetId/:transactionId", function(req, res) {
       }
       if (newAmount) {
         const transType = foundBudget.transactions.id(transactionId).type;
-        const transAmount = foundBudget.transactions.id(transactionId).amount;
+        const transAmount = parseFloat(foundBudget.transactions.id(transactionId).amount);
         switch (transType) {
           case 'Deposit':
-            foundBudget.total = (foundBudget.total - transAmount) + newAmount;
+            foundBudget.total = parseFloat(foundBudget.total - transAmount) + parseFloat(newAmount);
             break;
           case 'Withdrawal':
-            foundBudget.total = (foundBudget.total + transAmount) - newAmount;
+            foundBudget.total = parseFloat(foundBudget.total + transAmount) - parseFloat(newAmount);
             break;
           case 'Payment':
-            foundBudget.total = (foundBudget.total + transAmount) - newAmount;
+            foundBudget.total = parseFloat(foundBudget.total + transAmount) - parseFloat(newAmount);
             break;
         }
 
