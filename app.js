@@ -567,17 +567,17 @@ app.post("/transactions/:budgetId", function(req, res) {
 
       // Test update Total
       const transType = newTransaction.type;
-      const transAmount = newTransaction.amount.toFixed(2);
+      const transAmount = Number(newTransaction.amount).toFixed(2);
 
       switch (transType) {
         case 'Deposit':
-          foundBudget.total = foundBudget.total.toFixed(2) + transAmount;
+          foundBudget.total = Number(foundBudget.total).toFixed(2) + transAmount;
           break;
         case 'Withdrawal':
-          foundBudget.total = foundBudget.total.toFixed(2) - transAmount;
+          foundBudget.total = Number(foundBudget.total).toFixed(2) - transAmount;
           break;
         case 'Payment':
-          foundBudget.total = foundBudget.total.toFixed(2) - transAmount;
+          foundBudget.total = Number(foundBudget.total).toFixed(2) - transAmount;
           break;
       }
       // End Test update Total
