@@ -24,6 +24,18 @@ input[type=text] {
   padding: 0;
   padding-top: 100px;
   height: 100vh;
+  margin-bottom: 60px;
+}
+
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 60px;
+  line-height: 60px;
+  background-color: pink;
+  text-align: center;
 }
 
 .card {
