@@ -1,8 +1,8 @@
 <%- include('partials/header') %>
 
 <div class="text-center menuTop">
-  <h1>Personal Budgeting</h1>
-  <h2 class=""><%= userName %></h2>
+  <i class="fas fa-money-bill-wave"></i>
+  <h1 class=""><%= userName %></h1>
 </div>
 
 
@@ -13,14 +13,14 @@
     <div class="form-row">
 
       <div class="form-group col-sm-5">
-        <input type="text" class="form-control" name="budgetName" placeholder="Create a new budget">
+        <input type="text" class="text-new-account" name="budgetName" placeholder="Create a new account">
       </div>
       <div class="form-group col-xs-1">
-        <button type="submit" name="button" class="btn btn-success">+</button>
+        <button type="submit" name="button" class="btn-add" title="Create Account"><i class="fas fa-plus"></i></button>
       </div>
       <div class="form-group col-xs-1 ml-auto">
-        <div class="">
-          <a class="btn btn-outline-info" href="/logout" role="button">Logout</a>
+        <div class="btn-logout">
+          <a class="" href="/logout" role="button">Logout</a>
         </div>
       </div>
 
@@ -29,14 +29,8 @@
 
 
   </form>
-</div>
 
-
-
-
-
-
-<div class="col align-self-center">
+<div class="align-self-center" id="budgetsDiv">
 
   <% userBudgets.forEach(budget => { %>
   <div class="budget card">
@@ -45,14 +39,12 @@
       <h6>Description: <%= budget.description %></h6>
       <p>Total: $<%= budget.total.toFixed(2) %></p>
 
-      <div class="budgetButtons">
-        <div class="">
-          <a href="/budgets/<%= budget.id %>" class="btn btn-primary">View</a>
+          <a href="/budgets/<%= budget.id %>" class="btn-view" title="View Transactions"><i class="fas fa-info-circle"></i></a>
 
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateBudget-<%= budget.id %>">
-            Edit
-          </button>
+          <a class="btn-edit" title="Edit Info" data-toggle="modal" data-target="#updateBudget-<%= budget.id %>">
+            <i class="fas fa-edit"></i>
+          </a>
 
           <!-- Modal -->
 
@@ -69,9 +61,9 @@
                   <form class="form" action="/update/<%= budget.id %>" method="post">
                     <div class="form-group">
                       <label>Title</label>
-                      <input type="text" class="form-control" name="budgetName" value="<%= budget.name %>">
+                      <input type="text" class="text-new-account" name="budgetName" value="<%= budget.name %>">
                       <label>Description</label>
-                      <input type="text" class="form-control" name="budgetDesc" value="<%= budget.description %>">
+                      <input type="text" class="text-new-account" name="budgetDesc" value="<%= budget.description %>">
 
                     </div>
                     <div class="modal-footer">
@@ -85,17 +77,17 @@
             </div>
           </div>
 
-
-          <a href="/delete/<%= budget.id %>" class="btn btn-outline-danger">Delete</a>
-        </div>
-
-      </div>
+          <a href="/delete/<%= budget.id %>" class="btn-remove" title="Remove Account">
+            <i class="fas fa-trash"></i>
+          </a>
 
     </div>
 
   </div>
   <% }); %>
 
+
+</div>
 
 </div>
 

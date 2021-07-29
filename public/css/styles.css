@@ -1,13 +1,41 @@
+:root {
+  --primary-blue-tint: rgba(27, 28, 75, 0.938);
+  /* --primary-blue-tint: rgba(255, 255, 255, 0.726); */
+  --primary-blue-solid: rgb(27, 28, 75);
+  --primary-black-tint: rgba(15, 15, 15, 0.781);
+  --primary-green-solid: rgb(0, 124, 103);
+  --primary-green-tint: rgba(0, 124, 103, 0.781);
+
+}
+
 html {
+  /* background-color: var(--primary-blue-tint); */
   padding: 0;
   margin: 0;
 }
 
 body {
-  background-color: #1e2022;
+  background-color: #fff;
   color: #f0f5f9;
-  margin-bottom: 60px;
-  padding-top: 120px;
+  overflow-x: hidden;
+}
+
+.background {
+  height: 100vh;
+  min-width: 100vw;
+  background-repeat: no-repeat;
+  background: url('../images/finance.jpg');
+  background-position: center;
+  position: relative;
+}
+
+.layer {
+  background-color: var(--primary-blue-tint);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 input[type=text] {
@@ -15,15 +43,20 @@ input[type=text] {
 }
 
 .menuTop {
+  display: flex;
   padding-top: 30px;
   padding-bottom: 20px;
   color: white;
   font-size: 5rem;
-
-  background-color: #1e2022;
+  background-color: var(--primary-green-solid);
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.menuTop i {
+  font-size: 50px;
+  margin: 0px 25px;
 }
 
 .container {
@@ -33,63 +66,202 @@ input[type=text] {
   height: 100vh;
 }
 
+.container-fluid {
+  padding: 0;
+}
+
 .footer {
   width: 100%;
   position: fixed;
   bottom: 0;
   height: 60px;
   line-height: 60px;
-  background-color: #1e2022;
+  background-color: var(--primary-green-solid);
   text-align: center;;
-}
-
-.card {
-  background-color: #52616b;
-}
-
-.budget {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.budgetHead {
-  padding: 0 15px;
-  padding-top: 30px;
 }
 
 .headerRow {
   padding-bottom: 10px;
 }
 
-.transactionCard {
-  padding-left: 0px;
-  padding-right: 0px;
+.categoryForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nameCategory {
   display: inline-block;
-  width: 90%;
+  width: 85%;
 }
 
 .deleteCategory {
-  width: 10%;
+  width: 15%;
   display: inline;
   float: right;
   text-align: center;
   padding-top: 10px;
   height: 32px;
-  color: #FF0000;
+  color: rgba(148, 38, 38, 0.76);
 }
 
 .deleteCategory:hover {
-  color: #FF9494;
+  color: rgba(148, 38, 38, 0.925);
   text-decoration: none;
+}
+
+.text-new-account {
+  padding-left: 10px;
+  border-radius: 3px;
+  height: 35px;
+  border: 1px solid #a7a7a7a8;
+}
+
+.text-new-account:focus {
+  outline-color: rgba(43, 119, 124, 0.925);
+}
+
+.btn-add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  border-radius: 3px;
+}
+
+.btn-add i {
+  font-size: 24px;
+  color: rgb(0, 86, 216);
+}
+
+.btn-add:hover i {
+  color: rgb(0, 102, 255);
+}
+
+.btn-add:focus {
+  outline: none;
+}
+
+.btn-view, .btn-edit, .btn-remove {
+  cursor: pointer;
+  height: 35px;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  border-radius: 3px;
+}
+
+.btn-view:focus, .btn-edit:focus, .btn-remove:focus {
+  outline: none;
+}
+
+.btn-view:hover, .btn-edit:hover, .btn-remove:hover {
+  text-decoration: none;
+}
+
+.btn-view i, .btn-edit i, .btn-remove i {
+  font-size: 28px;
+}
+
+.btn-view, .btn-edit {
+  color: rgba(43, 119, 124, 0.76);
+}
+
+.btn-view:hover, .btn-edit:hover {
+  color: rgba(43, 119, 124, 0.925);
+}
+
+.btn-edit {
+  margin-left: 10px;
+}
+
+.btn-remove {
+  float: right;
+  color: rgba(148, 38, 38, 0.76);
+}
+
+.btn-remove:hover {
+  color: rgba(148, 38, 38, 0.925);
+}
+
+
+.btn-logout {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--primary-green-tint);
+  border-radius: 3px;
+  height: 35px;
+  width: 75px;
+}
+
+.btn-logout a {
+  color: var(--primary-green-tint);
+  text-decoration: none;
+}
+
+.btn-logout:hover {
+  background-color: var(--primary-green-tint);
+  border: none;
+}
+
+.btn-logout:hover a {
+  color: #fff;
+}
+
+.card {
+  background-color: transparent;
+  color: #1e2022;
+}
+
+.transaction {
+  margin: 10px 10px;
+  width: 450px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  /* box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.1); */
+}
+
+.budget {
+  margin: 10px 10px;
+  width: 450px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  /* box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.1); */
+}
+
+.budgetHead {
+  padding: 30px 15px 60px 15px;
+  /* background-color: var(--primary-blue-tint); */
+  background-color: #fff;
+}
+
+.transactionCard, #budgetsDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .budgetButtons {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+
+.budgetButtons div {
+  justify-content: space-between;
+}
+
+.budgetButtons div a {
+  margin: 0px 5px;
 }
 
 .deleteButton {
@@ -100,11 +272,12 @@ input[type=text] {
   padding-top: 50px;
   margin-top: 50px;
   height: 50vh;
-  background-color: #52616b;
+  background-color: var(--primary-green-solid);
 }
 
 .modal-content {
-  background-color: #52616b;
+  background-color: #fff;
+  color: #1e2022;
 }
 
 .createCategory .form-control {

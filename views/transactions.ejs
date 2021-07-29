@@ -1,14 +1,14 @@
 <%- include('partials/header') %>
 
-
-
-<h1 class="text-center menuTop"><%= budgetName %> Transactions</h1>
+<div class="text-center menuTop">
+  <i class="fas fa-money-bill-wave"></i>
+  <h1 class=""><%= budgetName %> Transactions</h1>
+</div>
 
 <div class="budgetHead">
-
   <div class="form-row headerRow">
     <div class="col-xs-1">
-      <a href="/budgets" class="btn btn-info">Back</a>
+      <a href="/budgets" class="btn btn-info"><i class="fas fa-long-arrow-alt-left"></i></a>
     </div>
     <div class="col-xs-1">
       <!-- Button trigger modal -->
@@ -29,35 +29,36 @@
           <% }); %>
 
           <div class="dropdown-divider"></div>
-          <form class="form-inline" action="/transactions/category/<%= budgetId %>" method="post">
-            <div class="form-row">
-              <div class="col-9 createCategory">
-                <input type="text" class="form-control" name="newCategory" id="newCategory" placeholder="New Category">
-              </div>
-              <div class="col-1">
-                <button type="submit" class="btn btn-primary mb-2 mr-sm-1">+</button>
-              </div>
+          <form class="categoryForm" action="/transactions/category/<%= budgetId %>" method="post">
+            <div class="createCategory">
+                <!-- <input type="text" class="form-control" name="newCategory" id="newCategory" placeholder="New Category"> -->
+              <input type="text" class="text-new-account" name="newCategory" id="newCategory" placeholder="New Category">
+            </div>
+            <div class="">
+                <!-- <button type="submit" class="btn btn-primary mb-2 mr-sm-1">+</button> -->
+              <button type="submit" name="button" class="btn-add" title="Create Category"><i class="fas fa-plus"></i></button>
             </div>
           </form>
         </div>
       </div>
     </div>
 
-    <div class="col-xs-1">
+    <div class="form-group col-xs-1">
       <div class="input-group-prepend">
         <p class="input-group-text" id="basic-addon1">Total: $<%= budgetTotal.toFixed(2) %></p>
       </div>
     </div>
-    <div class="col-xs-1">
+    <div class="form-group col-xs-1">
       <div class="input-group-prepend">
         <p class="input-group-text" id="basic-addon1">Category Total: $<%= categoryTotal.toFixed(2) %></p>
       </div>
     </div>
 
-    <div class="col-1 ml-auto">
+    <div class="form-group col-xs-1 ml-auto">
       <!-- Logout Button -->
-
-      <a class="btn btn-outline-info logoutButton" href="/logout" role="button">Logout</a>
+      <div class="btn-logout">
+        <a href="/logout" role="button">Logout</a>
+      </div>
     </div>
 
 
@@ -71,11 +72,11 @@
 
 
   <!-- Start render each transaction -->
-
+  <!-- <div class="transactions"> -->
   <div class="col align-self-center transactionCard">
 
     <% budgetTransactions.forEach(transaction => { %>
-    <div class="budget card">
+    <div class="transaction card">
       <div class="card-body">
         <h2><%= transaction.name %></h2>
         <p>Amount: $<%= transaction.amount.toFixed(2) %></p>
@@ -84,15 +85,17 @@
         <p>Type: <%= transaction.type %></p>
         <p>Category: <%= transaction.category %></p>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal-<%= transaction.id %>">
-          Edit
-        </button>
+        <a class="btn-edit" title="Edit Info" data-toggle="modal" data-target="#editModal-<%= transaction.id %>">
+          <i class="fas fa-edit"></i>
+        </a>
 
         <!-- Modal -->
 
         <%- include('partials/updateModal', {transaction: transaction}) %>
 
-        <a href="/delete/<%= budgetId %>/<%= transaction.id %>" class="btn btn-outline-danger">Delete</a>
+        <a href="/delete/<%= budgetId %>/<%= transaction.id %>" class="btn-remove" title="Remove Transaction">
+          <i class="fas fa-trash"></i>
+        </a>
 
       </div>
     </div>
@@ -100,6 +103,7 @@
 
 
   </div>
+<!-- </div> -->
 
   <!-- End render each transaction -->
 

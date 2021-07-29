@@ -28,15 +28,15 @@ app.use(passport.session());
 
 // Change Database object based on if using local or online version
 
-// mongoose.connect('mongodb://localhost:27017/budgetDB', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
-
-mongoose.connect(process.env.DATABASE_STRING, {
+mongoose.connect('mongodb://localhost:27017/budgetDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
+// mongoose.connect(process.env.DATABASE_STRING, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
 
 const transactionSchema = new mongoose.Schema({
   name: String,
@@ -95,8 +95,8 @@ passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     //Change callbackURL based on if using local or online version
-    // callbackURL: "http://localhost:3000/auth/google/budgets",
-    callbackURL: "https://whispering-lowlands-05174.herokuapp.com/auth/google/budgets",
+    callbackURL: "http://localhost:3000/auth/google/budgets",
+    // callbackURL: "https://whispering-lowlands-05174.herokuapp.com/auth/google/budgets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -284,16 +284,16 @@ app.post("/update/:budgetId/:transactionId", function(req, res) {
       }
       if (newAmount) {
         const transType = foundBudget.transactions.id(transactionId).type;
-        const transAmount = parseFloat(foundBudget.transactions.id(transactionId).amount);
+        const transAmount = foundBudget.transactions.id(transactionId).amount;
         switch (transType) {
           case 'Deposit':
-            foundBudget.total = parseFloat(foundBudget.total - transAmount) + parseFloat(newAmount);
+            foundBudget.total = (foundBudget.total - transAmount) + newAmount;
             break;
           case 'Withdrawal':
-            foundBudget.total = parseFloat(foundBudget.total + transAmount) - parseFloat(newAmount);
+            foundBudget.total = (foundBudget.total + transAmount) - newAmount;
             break;
           case 'Payment':
-            foundBudget.total = parseFloat(foundBudget.total + transAmount) - parseFloat(newAmount);
+            foundBudget.total = (foundBudget.total + transAmount) - newAmount;
             break;
         }
 
@@ -567,17 +567,17 @@ app.post("/transactions/:budgetId", function(req, res) {
 
       // Test update Total
       const transType = newTransaction.type;
-      const transAmount = parseFloat(newTransaction.amount);
+      const transAmount = newTransaction.amount;
 
       switch (transType) {
         case 'Deposit':
-          foundBudget.total = parseFloat(foundBudget.total) + transAmount;
+          foundBudget.total = foundBudget.total + transAmount;
           break;
         case 'Withdrawal':
-          foundBudget.total = parseFloat(foundBudget.total) - transAmount;
+          foundBudget.total = foundBudget.total - transAmount;
           break;
         case 'Payment':
-          foundBudget.total = parseFloat(foundBudget.total) - transAmount;
+          foundBudget.total = foundBudget.total - transAmount;
           break;
       }
       // End Test update Total
